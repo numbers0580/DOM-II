@@ -4,9 +4,9 @@
     Task 2: create event listeners
     mouseover = we'll change link colors/font-weight
     keydown = we'll change h1, h2, etc based on what key is pressed
-        b = bold, r = red, g = green, u = underline, n = normal
+        b = bold, r = red, g = green, n = normal
     wheel = we could cycle through background colors using the mouse wheel
-    drag / drop
+    drag / drop = have the two middle images swap
     load = this is a window onload. Not sure yet what I want this to do
     focus = window click event that gives the element 'focus'
     resize
@@ -19,12 +19,16 @@ let navBar = document.querySelector('nav');
 let navLinks = navBar.querySelectorAll('a');
 let navLinksArray = Array.from(navLinks);
 
+let dragSection1 = document.getElementsByClassName('content-section')[0];
+let dragSection2 = document.getElementsByClassName('content-section')[1];
+let dragOn;
+
 function changeColor(reformat) {
     reformat.target.style.color = "orange";
     reformat.target.style.fontWeight = "bold";
 }
 
-function cycleColors(event) {
+function cycleColors(e) {
     if(document.body.style.backgroundColor === "lightblue") {
         document.body.style.backgroundColor = "red"; //placeholder so I can loop in white
     }
@@ -41,6 +45,7 @@ function cycleColors(event) {
         document.body.style.backgroundColor = "white";
     }
     if((document.body.style.backgroundColor !== "white") && (document.body.style.backgroundColor !== "yellow") && (document.body.style.backgroundColor !== "pink") && (document.body.style.backgroundColor !== "lightblue")) {
+        //This only runs the first time, since technically no backgroundColor had been assigned despite the background looking white
         document.body.style.backgroundColor = "yellow";
     }
 }
@@ -84,3 +89,26 @@ for(let i = 0; i < navLinksArray.length; i++) {
 
 document.addEventListener('keydown', keyCheck);
 document.addEventListener('wheel', cycleColors);
+
+
+dragSection1.setAttribute('draggable', true);
+dragSection2.setAttribute('draggable', true);
+
+document.addEventListener('drag', function(event) {}, false);
+document.addEventListener('dragstart', function(event) {
+    dragOn = event.target;
+}, false);
+
+document.addEventListener('dragover', function(event) {
+    event.preventDefault();
+}, false);
+
+document.addEventListener('drop', function(event) {
+    event.preventDefault();
+    let dropOn = event.target;
+    let tempSpace = document.createElement('span');
+    tempSpace.className = 'hideSpan';
+    dropOn.before(tempSpace);
+    dragOn.before(dropOn);
+    tempSpace.replaceWith(dragOn);
+}, false);
