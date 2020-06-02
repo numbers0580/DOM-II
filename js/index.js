@@ -24,6 +24,27 @@ function changeColor(reformat) {
     reformat.target.style.fontWeight = "bold";
 }
 
+function cycleColors(event) {
+    if(document.body.style.backgroundColor === "lightblue") {
+        document.body.style.backgroundColor = "red"; //placeholder so I can loop in white
+    }
+    if(document.body.style.backgroundColor === "pink") {
+        document.body.style.backgroundColor = "lightblue";
+    }
+    if(document.body.style.backgroundColor === "yellow") {
+        document.body.style.backgroundColor = "pink";
+    }
+    if(document.body.style.backgroundColor === "white") {
+        document.body.style.backgroundColor = "yellow";
+    }
+    if(document.body.style.backgroundColor === "red") {
+        document.body.style.backgroundColor = "white";
+    }
+    if((document.body.style.backgroundColor !== "white") && (document.body.style.backgroundColor !== "yellow") && (document.body.style.backgroundColor !== "pink") && (document.body.style.backgroundColor !== "lightblue")) {
+        document.body.style.backgroundColor = "yellow";
+    }
+}
+
 function keyCheck(keyed) {
     let hOne = document.querySelector('h1');
     let hTwo = document.querySelectorAll('h2');
@@ -62,3 +83,4 @@ for(let i = 0; i < navLinksArray.length; i++) {
 }
 
 document.addEventListener('keydown', keyCheck);
+document.addEventListener('wheel', cycleColors);
