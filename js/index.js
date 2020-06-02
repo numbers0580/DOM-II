@@ -8,7 +8,7 @@
     wheel = we could cycle through background colors using the mouse wheel
     drag / drop = have the two middle images swap
     load = this is a window onload. Not sure yet what I want this to do
-    focus = window click event that gives the element 'focus'
+    focus = change the 'Pick Your Destination' section somehow?
     resize
     scroll
     select
@@ -22,6 +22,9 @@ let navLinksArray = Array.from(navLinks);
 let dragSection1 = document.getElementsByClassName('content-section')[0];
 let dragSection2 = document.getElementsByClassName('content-section')[1];
 let dragOn;
+
+let focusableBtn = document.getElementsByClassName('btn')[0];
+let headArea = document.getElementsByTagName('header')[0];
 
 function changeColor(reformat) {
     reformat.target.style.color = "orange";
@@ -83,6 +86,25 @@ function keyCheck(keyed) {
     }
 }
 
+//focus function -- still a work in progress
+function focusBtn(event) {
+    event.target.style.color ="lightgreen";
+}
+
+//resize function
+function gotTooSmall(event) {
+    let currentWidth = window.innerWidth;
+
+    if(currentWidth < 800) {
+        headArea.style.backgroundColor = "black";
+        headArea.style.color = "white";
+
+        for(let i = 0; i < navLinksArray.length; i++) {
+            navLinksArray[i].style.color = "white";
+        }
+    }
+}
+
 for(let i = 0; i < navLinksArray.length; i++) {
     navLinksArray[i].addEventListener('mouseover', changeColor);
 }
@@ -90,7 +112,7 @@ for(let i = 0; i < navLinksArray.length; i++) {
 document.addEventListener('keydown', keyCheck);
 document.addEventListener('wheel', cycleColors);
 
-
+//This is the start of the drag and drop section of code
 dragSection1.setAttribute('draggable', true);
 dragSection2.setAttribute('draggable', true);
 
@@ -112,3 +134,9 @@ document.addEventListener('drop', function(event) {
     dragOn.before(dropOn);
     tempSpace.replaceWith(dragOn);
 }, false);
+//This is the end of the drag and drop section of code
+
+//Still a work in progress
+focusableBtn.addEventListener('focus', focusBtn);
+
+window.addEventListener('resize', gotTooSmall);
