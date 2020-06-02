@@ -9,7 +9,7 @@
     drag / drop = have the two middle images swap
     load = this is a window onload. Not sure yet what I want this to do
     focus = change the 'Pick Your Destination' section somehow?
-    resize
+    resize = changed header colors
     scroll
     select
     dblclick
@@ -23,7 +23,7 @@ let dragSection1 = document.getElementsByClassName('content-section')[0];
 let dragSection2 = document.getElementsByClassName('content-section')[1];
 let dragOn;
 
-let focusableBtn = document.getElementsByClassName('btn')[0];
+let focusableSection = document.getElementsByClassName('content-destination')[0];
 let headArea = document.getElementsByTagName('header')[0];
 
 function changeColor(reformat) {
@@ -86,9 +86,12 @@ function keyCheck(keyed) {
     }
 }
 
-//focus function -- still a work in progress
-function focusBtn(event) {
-    event.target.style.color ="lightgreen";
+//focus function
+function focusBottom(event) {
+    focusableSection.style.backgroundColor = "lightgreen";
+}
+function blurBottom(event) {
+    focusableSection.style.backgroundColor = "";
 }
 
 //resize function
@@ -136,7 +139,9 @@ document.addEventListener('drop', function(event) {
 }, false);
 //This is the end of the drag and drop section of code
 
-//Still a work in progress
-focusableBtn.addEventListener('focus', focusBtn);
+//focus Section
+focusableSection.setAttribute('tabindex', 0); //Found this on stackoverflow. Helped to focus on non-form elements, like <section>
+focusableSection.addEventListener('focus', focusBottom);
+focusableSection.addEventListener('blur', blurBottom);
 
 window.addEventListener('resize', gotTooSmall);
