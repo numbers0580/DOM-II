@@ -29,9 +29,12 @@ let bottomImage = document.getElementById('lastImage');
 let targetArea = document.getElementById('iGiveUp');
 targetArea.style.width = "500px";
 
-let topRow = document.getElementsByClassName('main-navigation')[0];
 let currentSize = 1;
 let mainImage = document.getElementById('topImage');
+
+let stopSection = document.getElementById('stopTestSection');
+let stopDiv = document.getElementById('stopTestDiv');
+let stopImg = document.getElementById('stopTestImg');
 
 //mouseover function
 function changeColor(reformat) {
@@ -148,6 +151,18 @@ function growBounds(event) {
     mainImage.style.transform = `scale(${currentSize}, ${currentSize})`;
 }
 
+//stopPropagation function
+function stopTest(event) {
+    alert("Let's go on an adventure!");
+    event.stopPropagation();
+}
+function stopTest2(event) {
+    alert("'img-content' div was clicked");
+}
+function stopTest3(event) {
+    alert("'content-section' section was clicked");
+}
+
 
 //mouseover
 for(let i = 0; i < navLinksArray.length; i++) {
@@ -192,6 +207,13 @@ window.addEventListener('resize', gotTooSmall);
 //scroll
 window.addEventListener('scroll', colorbyScroll, false);
 
+//select
 targetArea.addEventListener('select', revealSelect);
 
+//dblclick
 mainImage.addEventListener('dblclick', growBounds);
+
+//stop dblclick
+stopImg.addEventListener('click', stopTest);
+stopDiv.addEventListener('click', stopTest2);
+stopSection.addEventListener('click', stopTest3);
