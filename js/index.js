@@ -163,13 +163,22 @@ function stopTest3(event) {
     alert("'content-section' section was clicked");
 }
 
+//preventDefault function
+function prevention(event) {
+    event.preventDefault();
+}
+
+//Event Listeners
 
 //mouseover
 for(let i = 0; i < navLinksArray.length; i++) {
     navLinksArray[i].addEventListener('mouseover', changeColor);
 }
 
+//keydown
 document.addEventListener('keydown', keyCheck);
+
+//wheel
 document.addEventListener('wheel', cycleColors);
 
 //This is the start of the drag and drop section of code
@@ -217,3 +226,8 @@ mainImage.addEventListener('dblclick', growBounds);
 stopImg.addEventListener('click', stopTest);
 stopDiv.addEventListener('click', stopTest2);
 stopSection.addEventListener('click', stopTest3);
+
+//preventDefault on links
+for(let x = 0; x < navLinksArray.length; x++) {
+    navLinksArray[x].addEventListener('click', prevention);
+}
