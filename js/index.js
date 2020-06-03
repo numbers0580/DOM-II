@@ -26,13 +26,16 @@ let dragOn;
 let focusableSection = document.getElementsByClassName('content-destination')[0];
 let headArea = document.getElementsByTagName('header')[0];
 let bottomImage = document.getElementById('lastImage');
-let scrollPosition = 0;
+let targetArea = document.getElementById('iGiveUp');
+targetArea.style.width = "500px";
 
+//mouseover function
 function changeColor(reformat) {
     reformat.target.style.color = "orange";
     reformat.target.style.fontWeight = "bold";
 }
 
+//wheel function
 function cycleColors(e) {
     if(document.body.style.backgroundColor === "lightblue") {
         document.body.style.backgroundColor = "red"; //placeholder so I can loop in white
@@ -55,6 +58,7 @@ function cycleColors(e) {
     }
 }
 
+//keydown function
 function keyCheck(keyed) {
     let hOne = document.querySelector('h1');
     let hTwo = document.querySelectorAll('h2');
@@ -89,15 +93,15 @@ function keyCheck(keyed) {
 }
 
 //focus function
-function focusBottom(event) {
+function focusBottom(unusedParam) {
     focusableSection.style.backgroundColor = "lightgreen";
 }
-function blurBottom(event) {
+function blurBottom(insertParam) {
     focusableSection.style.backgroundColor = "";
 }
 
 //resize function
-function gotTooSmall(event) {
+function gotTooSmall(sizeParam) {
     let currentWidth = window.innerWidth;
 
     if(currentWidth < 800) {
@@ -111,11 +115,23 @@ function gotTooSmall(event) {
 }
 
 //scroll function
-function colorbyScroll(event) {
+function colorbyScroll(grayscaler) {
     //This is not the way I wanted to perform this function, but it's late. It'll have to do for now
     bottomImage.style.filter = "grayscale(100%)";
 }
 
+//select function
+function revealSelect(copier) {
+    let outputP = document.getElementById('showSelected');
+    let selectedString = copier.target.value.substring(copier.target.selectionStart, copier.target.selectionEnd);
+
+    outputP.style.color = "red";
+    outputP.style.fontWeight = "bold";
+    outputP.textContent = `You selected: ${selectedString}`;
+}
+
+
+//mouseover
 for(let i = 0; i < navLinksArray.length; i++) {
     navLinksArray[i].addEventListener('mouseover', changeColor);
 }
@@ -157,3 +173,5 @@ window.addEventListener('resize', gotTooSmall);
 
 //scroll
 window.addEventListener('scroll', colorbyScroll, false);
+
+targetArea.addEventListener('select', revealSelect);
