@@ -29,6 +29,10 @@ let bottomImage = document.getElementById('lastImage');
 let targetArea = document.getElementById('iGiveUp');
 targetArea.style.width = "500px";
 
+let topRow = document.getElementsByClassName('main-navigation')[0];
+let currentSize = 1;
+let mainImage = document.getElementById('topImage');
+
 //mouseover function
 function changeColor(reformat) {
     reformat.target.style.color = "orange";
@@ -130,6 +134,20 @@ function revealSelect(copier) {
     outputP.textContent = `You selected: ${selectedString}`;
 }
 
+//dblclick function
+function growBounds(event) {
+    if(currentSize === 1) {
+        currentSize = 2;
+    }
+    if(currentSize === 1.5) {
+        currentSize = 1;
+    }
+    if(currentSize === 2) {
+        currentSize = 1.5;
+    }
+    mainImage.style.transform = `scale(${currentSize}, ${currentSize})`;
+}
+
 
 //mouseover
 for(let i = 0; i < navLinksArray.length; i++) {
@@ -175,3 +193,5 @@ window.addEventListener('resize', gotTooSmall);
 window.addEventListener('scroll', colorbyScroll, false);
 
 targetArea.addEventListener('select', revealSelect);
+
+mainImage.addEventListener('dblclick', growBounds);
