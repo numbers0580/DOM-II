@@ -25,6 +25,8 @@ let dragOn;
 
 let focusableSection = document.getElementsByClassName('content-destination')[0];
 let headArea = document.getElementsByTagName('header')[0];
+let bottomImage = document.getElementById('lastImage');
+let scrollPosition = 0;
 
 function changeColor(reformat) {
     reformat.target.style.color = "orange";
@@ -108,6 +110,12 @@ function gotTooSmall(event) {
     }
 }
 
+//scroll function
+function colorbyScroll(event) {
+    //This is not the way I wanted to perform this function, but it's late. It'll have to do for now
+    bottomImage.style.filter = "grayscale(100%)";
+}
+
 for(let i = 0; i < navLinksArray.length; i++) {
     navLinksArray[i].addEventListener('mouseover', changeColor);
 }
@@ -144,4 +152,8 @@ focusableSection.setAttribute('tabindex', 0); //Found this on stackoverflow. Hel
 focusableSection.addEventListener('focus', focusBottom);
 focusableSection.addEventListener('blur', blurBottom);
 
+//resize
 window.addEventListener('resize', gotTooSmall);
+
+//scroll
+window.addEventListener('scroll', colorbyScroll, false);
